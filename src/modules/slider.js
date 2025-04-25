@@ -1,7 +1,5 @@
-const sliderModule = () => {
-    const slider = 'my slider';
+const slider = () => {
+  console.log("slider");
+};
 
-    console.log(slider);
-}
-
-export default sliderModule
+export default slider;
