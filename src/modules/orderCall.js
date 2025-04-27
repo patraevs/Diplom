@@ -30,7 +30,19 @@ const orderCall = () => {
   });
 
   scrollBtn.addEventListener("click", () => {
-    document.documentElement.scrollTop = 100;
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  window.addEventListener("scroll", () => {
+    const scrollTopValue = document.documentElement.scrollTop;
+    if (scrollTopValue > 710) {
+      scrollBtn.style.opacity = 1;
+    } else if (scrollTopValue < 710) {
+      scrollBtn.style.opacity = 0;
+    }
   });
 };
 
