@@ -1,5 +1,6 @@
 const calc = () => {
   const calcBlock = document.getElementById("calc");
+  if (!calcBlock) return;
   const calcType = document.getElementById("calc-type");
   const calcTypeMaterial = document.getElementById("calc-type-material");
   const calcInput = document.getElementById("calc-input");
@@ -19,6 +20,7 @@ const calc = () => {
     }
     calcTotal.placeholder = totalValue + " руб";
   };
+
   calcBlock.addEventListener("input", (e) => {
     if (
       e.target === calcType ||
@@ -29,4 +31,5 @@ const calc = () => {
     }
   });
 };
+
 export default calc;
