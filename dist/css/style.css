@@ -791,6 +791,11 @@ p.services-image_mobile {
   left: 0;
   opacity: 0;
 }
+.document-overlay:hover {
+  opacity: 1;
+  transition: opacity 0.3s linear;
+  -webkit-transition: opacity 0.3s linear;
+}
 .document-inner:hover .document-overlay {
   opacity: 1;
   transition: opacity 0.3s linear;
@@ -1678,4 +1683,23 @@ input.error {
     width: 100%;
     max-width: 576px;
   }
+}
+
+#lightbox {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(65, 170, 250, 0.18);
+  display: none;
+}
+
+#lightbox.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#lightbox.active img {
+  width: 450px;
 }
