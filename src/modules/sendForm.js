@@ -1,18 +1,43 @@
 const sendForm = ({ formId, someElem = [] }) => {
-  const form = document.querySelector('form[name="action-form"]');
+  let form = document.getElementById(formId);
+
   const statusBlock = document.createElement("div");
   const loadText = "Загрузка...";
   const errorText = "Ошибка...";
   const successText = "Спасибо! Наш менеджер с Вами свяжется.";
 
-  const validate = (list) => {
-    let success = true;
+  const validate = (formElements) => {
+    const userName = form.querySelectorAll('[name="fio"]');
+    const userPhone = form.querySelectorAll('[name="phone"]');
 
-    // list.forEach((input) => {
-    //   if (!input.classList.contains("success")) {
-    //     success = false;
-    //   }
-    // });
+    let success = true;
+    let filledFields = 0;
+
+    formElements.forEach((input) => {
+      if (input.value.trim() !== "") filledFields++;
+    });
+
+    if (filledFields === 0) {
+      alert("Все поля должны быть заполнены!");
+      return false;
+    }
+
+    if (filledFields < 2) {
+      alert("Заполните как минимум два поля!");
+      return false;
+    }
+
+    userName.forEach((input) => {
+      if (/[^а-яА-ЯёЁa-zA-Z ]/.test(input.value)) {
+        success = false;
+      }
+    });
+
+    userPhone.forEach((input) => {
+      if (!/^\+\d{1,16}$/.test(input.value)) {
+        success = false;
+      }
+    });
 
     return success;
   };
@@ -28,7 +53,9 @@ const sendForm = ({ formId, someElem = [] }) => {
   };
 
   const submitForm = () => {
-    const formElements = document.querySelectorAll("input");
+    const formElements = Array.from(form.querySelectorAll("input")).filter(
+      (input) => input.type !== "hidden"
+    );
     const formData = new FormData(form);
     const formBody = {};
 
@@ -41,16 +68,16 @@ const sendForm = ({ formId, someElem = [] }) => {
 
     someElem.forEach((elem) => {
       const element = document.getElementById(elem.id);
+      if (!element) return;
 
-      console.log(element);
       if (elem.type === "block") {
-        formBody[elem.id] = element.placeholder;
+        if (element.placeholder) {
+          formBody[elem.id] = element.placeholder;
+        }
       } else if (elem.type === "input") {
         formBody[elem.id] = element.value;
       }
     });
-
-    console.log("submit");
 
     if (validate(formElements)) {
       sendData(formBody)

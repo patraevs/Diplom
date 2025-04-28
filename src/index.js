@@ -15,7 +15,16 @@ timer("28 april 2025");
 calc();
 validation();
 sendForm({
-  formId: "action-form",
+  formId: "form1",
+  someElem: [
+    {
+      type: "block",
+      id: "calc-total",
+    },
+  ],
+});
+sendForm({
+  formId: "form2",
   someElem: [
     {
       type: "block",
